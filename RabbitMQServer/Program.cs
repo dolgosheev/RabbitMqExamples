@@ -15,25 +15,27 @@ var factory = new ConnectionFactory
 using (var connection = factory.CreateConnection())
 using (var channel = connection.CreateModel())
 {
-    channel.QueueDeclare("task_queue",
-        true,
-        false,
-        false,
-        null);
+    // channel.QueueDeclare("task_queue",
+    //     true,
+    //     false,
+    //     false,
+    //     null);
+    //
     
-    var iterator = 0;
+    // var properties = channel.CreateBasicProperties();
+    // properties.Persistent = true;
     
-    var properties = channel.CreateBasicProperties();
-    properties.Persistent = true;
-    
+     var iterator = 0;
+     channel.ExchangeDeclare(exchange: "logs2", type: ExchangeType.Direct);
+     
     while (channel.IsOpen)
     {
         var message = $"Message {iterator} | Current data is {DateTime.Now:F}";
         var body = Encoding.UTF8.GetBytes(message);
 
-        channel.BasicPublish(exchange: "",
-            routingKey: "task_queue",
-            basicProperties: properties,
+        channel.BasicPublish(exchange: "logs2",
+            routingKey: "",
+            basicProperties: null,
             body: body);
         
         Console.WriteLine($"Sent [{iterator++}] | Message [{message}]");
