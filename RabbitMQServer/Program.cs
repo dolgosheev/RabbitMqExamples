@@ -15,26 +15,29 @@ var factory = new ConnectionFactory
 using (var connection = factory.CreateConnection())
 using (var channel = connection.CreateModel())
 {
-    channel.QueueDeclare("identify",
-        false,
+    channel.QueueDeclare("task_queue",
+        true,
         false,
         false,
         null);
     
     var iterator = 0;
     
+    var properties = channel.CreateBasicProperties();
+    properties.Persistent = true;
+    
     while (channel.IsOpen)
     {
         var message = $"Message {iterator} | Current data is {DateTime.Now:F}";
         var body = Encoding.UTF8.GetBytes(message);
-        
-        channel.BasicPublish("",
-            "identify",
-            null,
-            body);
+
+        channel.BasicPublish(exchange: "",
+            routingKey: "task_queue",
+            basicProperties: properties,
+            body: body);
         
         Console.WriteLine($"Sent [{iterator++}] | Message [{message}]");
-        Task.Delay(100).Wait();
+        Task.Delay(1000).Wait();
     }
 }
 
