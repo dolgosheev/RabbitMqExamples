@@ -1,0 +1,5 @@
+.idea/.idea.RabbitMQ/.idea
+RabbitMQClient/bin
+RabbitMQClient/obj
+RabbitMQServer/bin
+RabbitMQServer/obj
