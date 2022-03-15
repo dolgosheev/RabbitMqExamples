@@ -13,7 +13,7 @@ var factory = new ConnectionFactory
 };
 using var connection = factory.CreateConnection();
 using var channel = connection.CreateModel();
-channel.QueueDeclare("hello",
+channel.QueueDeclare("identify",
     false,
     false,
     false,
@@ -24,9 +24,9 @@ consumer.Received += (_, ea) =>
 {
     var body = ea.Body.ToArray();
     var message = Encoding.UTF8.GetString(body);
-    Console.WriteLine(" [x] Received {0}", message);
+    Console.WriteLine("Received {0}", message);
 };
-channel.BasicConsume("hello",
+channel.BasicConsume("identify",
     true,
     consumer);
 

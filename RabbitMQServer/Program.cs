@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using System.Threading.Tasks;
 
 using RabbitMQ.Client;
 
@@ -14,21 +15,27 @@ var factory = new ConnectionFactory
 using (var connection = factory.CreateConnection())
 using (var channel = connection.CreateModel())
 {
-    channel.QueueDeclare("hello",
+    channel.QueueDeclare("identify",
         false,
         false,
         false,
         null);
-
-    var message = "Hello World!";
-    var body = Encoding.UTF8.GetBytes(message);
-
-    channel.BasicPublish("",
-        "hello",
-        null,
-        body);
-    Console.WriteLine(" [x] Sent {0}", message);
+    
+    var iterator = 0;
+    
+    while (channel.IsOpen)
+    {
+        var message = $"Message {iterator} | Current data is {DateTime.Now:F}";
+        var body = Encoding.UTF8.GetBytes(message);
+        
+        channel.BasicPublish("",
+            "identify",
+            null,
+            body);
+        
+        Console.WriteLine($"Sent [{iterator++}] | Message [{message}]");
+        Task.Delay(100).Wait();
+    }
 }
 
-Console.WriteLine(" Press [enter] to exit.");
 Console.ReadLine();
