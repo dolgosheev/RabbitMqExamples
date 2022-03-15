@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitMQServer", "RabbitMQS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitMQClient", "RabbitMQClient\RabbitMQClient.csproj", "{A91A8D9B-05B6-40C4-9820-95260203A1CB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Serializer", "Serializer\Serializer.csproj", "{66017195-EC6F-49B4-98CE-D58D4A98F35E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{A91A8D9B-05B6-40C4-9820-95260203A1CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A91A8D9B-05B6-40C4-9820-95260203A1CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A91A8D9B-05B6-40C4-9820-95260203A1CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66017195-EC6F-49B4-98CE-D58D4A98F35E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66017195-EC6F-49B4-98CE-D58D4A98F35E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66017195-EC6F-49B4-98CE-D58D4A98F35E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66017195-EC6F-49B4-98CE-D58D4A98F35E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

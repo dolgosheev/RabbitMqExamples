@@ -1,8 +1,9 @@
 ﻿using System;
-using System.Text;
 using System.Threading.Tasks;
 
 using RabbitMQ.Client;
+
+using Serializer;
 
 var factory = new ConnectionFactory
 {
@@ -20,23 +21,27 @@ using (var channel = connection.CreateModel())
         false,
         false,
         null);
-    
+
     var iterator = 0;
-    
+
     var properties = channel.CreateBasicProperties();
     properties.Persistent = true;
-    
+
     while (channel.IsOpen)
     {
         var message = $"Message {iterator} | Current data is {DateTime.Now:F}";
-        var body = Encoding.UTF8.GetBytes(message);
+        //var body = Encoding.UTF8.GetBytes(message);
 
-        channel.BasicPublish(exchange: "",
-            routingKey: "task_queue",
-            basicProperties: properties,
-            body: body);
-        
-        Console.WriteLine($"Sent [{iterator++}] | Message [{message}]");
+        var dt = new ExtendData(DateTime.Now, message);
+        var evt = Data.SerializeToStream(dt);
+
+        channel.BasicPublish("",
+            "task_queue",
+            properties,
+            evt.ToArray());
+
+        //Console.WriteLine($"Sent [{iterator++}] | Message [{message}]");
+        Console.WriteLine($"Sent [{iterator++}] | Message {message}");
         Task.Delay(1000).Wait();
     }
 }

@@ -3,3 +3,5 @@ RabbitMQClient/bin
 RabbitMQClient/obj
 RabbitMQServer/bin
 RabbitMQServer/obj
+Serializer/obj
+Serializer/bin
