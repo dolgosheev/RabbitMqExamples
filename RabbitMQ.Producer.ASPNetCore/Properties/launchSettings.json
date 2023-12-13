@@ -1,0 +1,12 @@
+﻿{
+  "profiles": {
+    "asp_net_core_client": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": false,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}
